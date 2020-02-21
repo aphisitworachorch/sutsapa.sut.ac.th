@@ -3,6 +3,21 @@ require('datatables.net-bs4');
 require('summernote');
 require('summernote/dist/summernote.css');
 
+window.strip = function (html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+};
+
+window.viewPost = function (content) {
+    Swal.fire(
+        {
+            title: 'เนื้อหา',
+            icon: 'info',
+            html: strip(content) + ""
+        }
+    );
+};
+
 $(function () {
     $(document).ready(function () {
         $('#logout').click(function () {
@@ -42,7 +57,8 @@ $(function () {
                 },
                 {
                     data: function (text) {
-                        return text.feedback_content.replace(/<[^>]*>?/gm, '');
+                        return "<button class='btn btn-info' onclick='viewPost(\"" + text.feedback_content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;') + "" + "\")'>ดูเนื้อหาที่โพสต์</button>";
+
                     },
                     name: "feedback_content"
                 },

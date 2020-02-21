@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>สภานักศึกษา มหาวิทยาลัยเทคโนโลยีสุรนารี</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -36,6 +36,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/news">ข่าวสาร</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/discuss">กระดานสนทนา</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/advocacy">ศูนย์พิทักษ์สิทธินักศึกษา</a>

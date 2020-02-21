@@ -162,7 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class ,
         Illuminate\View\ViewServiceProvider::class ,
         Yajra\DataTables\DataTablesServiceProvider::class ,
-        GuzzleHttp\Client::class ,
+        Rebing\GraphQL\GraphQLServiceProvider::class ,
+
 
         /*
          * Package Service Providers...
@@ -228,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class ,
         'View' => Illuminate\Support\Facades\View::class ,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class ,
-        'Client' => GuzzleHttp\Client::class ,
+        'GraphQL' => 'Rebing\GraphQL\Support\Facades\GraphQL' ,
 
     ] ,
 
