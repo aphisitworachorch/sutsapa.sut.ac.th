@@ -40,6 +40,8 @@ Route::get ( '/news/article/{article_number}' , 'NewsController@articleview' );
 
 /** DISCUSSION CONTROLLER */
 Route::post ( '/discuss/create' , 'DiscussionController@createDiscussion' );
+Route::get ( '/discuss/view/{id}' , 'DiscussionController@viewDiscussion' );
+Route::post ( '/discuss/edit/{id}', 'DiscussionController@editDiscussion' );
 /** DISCUSSION CONTROLLER */
 
 /** VOTE CONTROLLER */
