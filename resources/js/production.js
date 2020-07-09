@@ -9,13 +9,8 @@ window.strip = function (html) {
 };
 
 window.viewPost = function (content) {
-    Swal.fire(
-        {
-            title: 'เนื้อหา',
-            icon: 'info',
-            html: strip(content) + ""
-        }
-    );
+    $('#content').html(strip(content));
+    $('#advocacyView').modal('show');
 };
 
 $(function () {
@@ -144,6 +139,70 @@ $(function () {
             })
 
         });
+        $('#deletenews').click((e)=>{
+            $.ajax({
+                url: window.location+"/delete",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (e) {
+                    if (e.status === "success") {
+                        Swal.fire({
+                            title: 'ลบประกาศสำเร็จ',
+                            icon: 'success'
+                        }).then(result=>{
+                            if(result.value){
+                                window.location.replace("/sapa/news_announce");
+                            }else{
+
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'ลบประกาศไม่สำเร็จ',
+                            icon: 'error'
+                        });
+                    }
+                }
+            })
+        })
+        $('#newsedit').submit(function (e) {
+            e.preventDefault();
+            let msg = {
+                news_title: $('#news_title').val(),
+                news_content: $('#news_content').val()
+            };
+            $.ajax({
+                url: window.location+"/edit",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(msg),
+                success: function (e) {
+                    if (e.status === "success") {
+                        Swal.fire({
+                            title: 'แก้ไขประกาศสำเร็จ',
+                            icon: 'success'
+                        }).then(result=>{
+                            if(result.value){
+                                window.location.reload();
+                            }else{
+
+                            }
+                        })
+                        $('#newsedit')[0].reset();
+                        $('#newsEditModal').modal('hide');
+                    } else {
+                        Swal.fire({
+                            title: 'แก้ไขประกาศไม่สำเร็จ',
+                            icon: 'error'
+                        });
+                    }
+                }
+            })
+
+        });
         $('textarea').summernote({
             popover: {
                 image: [],
@@ -198,6 +257,9 @@ $(function () {
                     console.log(e);
                 }
             })
+        })
+        $('#editnews').on('click',(e)=>{
+            $('#newsEditModal').modal('show');
         })
     })
 });

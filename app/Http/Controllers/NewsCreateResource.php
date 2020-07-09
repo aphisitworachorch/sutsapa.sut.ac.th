@@ -78,12 +78,29 @@ class NewsCreateResource extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        if (Auth::check ()) {
+            if($request->ajax() && $request->method() == "POST"){
+                $news = News::find($id);
+                $news->news_title = $request->news_title;
+                $news->news_content = $request->news_content;
+                $news->save();
+                return response()->json(array("status"=>"success"));
+            }else{
+                $news = News::where ( 'id' , $id )
+                    ->get ();
+                return view ( 'news.fullnews_edit' )->with ( array("newsview" => $news) );
+            }
+        } else {
+            $news = News::where ( 'id' , $id )
+                ->get ();
+            return view ( 'news.fullnews' )->with ( array("newsview" => $news) );
+        }
     }
 
     /**
@@ -101,11 +118,20 @@ class NewsCreateResource extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        if($request->ajax()){
+            if (Auth::check ()) {
+                $news = News::find($id);
+                $news->delete();
+                return response()->json(array("status"=>"success"));
+            }else{
+
+            }
+        }
     }
 }

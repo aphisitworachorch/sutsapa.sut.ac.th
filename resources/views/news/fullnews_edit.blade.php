@@ -19,6 +19,30 @@
                 <p style="color:gray">สร้างเมื่อ {{ $news->created_at }}</p>
             </div>
         @endforeach
-        <h1></h1>
+    <!-- Modal -->
+        <div class="modal fade" id="newsEditModal" tabindex="-1" role="dialog"
+             aria-labelledby="newsEditModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newsEditModalLabel">แก้ไขประกาศ / ข่าว</h5>
+                    </div>
+                    <div class="modal-body">
+                        @foreach($newsview as $news)
+                            <form class="form-group" id="newsedit" method="POST">
+                                {{ csrf_field() }}
+                                <label for="news_title">หัวข้อข่าว / ประกาศ</label>
+                                <input type="text" class="form-control" name="news_title" id="news_title"
+                                       value="{{ $news->news_title }}"/>
+                                <label for="news_content">เนื้อหาข่าว</label>
+                                <textarea id="news_content" class="form-control" name="news_content">{{ $news->news_content }}</textarea>
+                                <br/>
+                                <input type="submit" class="btn btn-success" name="submit"/>
+                            </form>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

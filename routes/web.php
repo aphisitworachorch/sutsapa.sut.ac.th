@@ -31,6 +31,8 @@ Route::get ( '/sapa/news_announce' , 'NewsCreateController@index' );
 /** SAPA ADMINISTRATION CONTROLLER (Management Systems)*/
 
 /** NEWS CONTROLLER (Management Systems) */
+Route::post ('/sapa/news/manage/{id}/delete', 'NewsCreateResource@destroy');
+Route::post ( '/sapa/news/manage/{id}/edit' , 'NewsCreateResource@edit' );
 Route::resource ( '/sapa/news/manage' , 'NewsCreateResource' );
 /** NEWS CONTROLLER (Management Systems) */
 
